@@ -32,35 +32,45 @@ def search(searchstring):
     count = int(scount)
     
     if debug:
-        print(scount)
-        #print(len(titles))
-        #print(len(links))
-        #print(len(icons))
+        print('search result count:\t', scount)
+        print('title count:\t\t', len(titles))
+        print('link count:\t\t', len(links))
+        print('icon count:\t\t',len(icons))
         #print(list(zip(titles, links, icons)))
         pass
     
     for app in list(zip(titles, links, icons)):
-        apps.append({'title':app[0], 'link':host + app[1], 'icon':app[2], 'downloadpage':'', 'version':'', 'downloadlink':'', 'filename':''})
+        apps.append({'title':app[0], 'link':host + app[1], 'icon':app[2], 'downloadpage':'', 'version':'', 'downloadlink':'', 'filename':'', 'package':app[1].split('/')[2]})
 
 
 def details(app):
     response = s.get(app['link'])
+    if response.status_code == 404:
+        app['downloadpage'] = None
+        return 0
+    
     tree = html.fromstring(response.content)
     
-    downloadpage = tree.xpath('//div[@class="ny-down"]/a[@class=" da"]/@href')[0]
-    version  = tree.xpath('//div[@class="details-sdk"]/span/text()')[0]
+    downloadpage = tree.xpath('//div[@class="ny-down"]/a[@class=" da"]/@href')
+    version  = tree.xpath('//div[@class="details-sdk"]/span/text()')
+    
+    if len(downloadpage) == 0:
+        downloadpage = tree.xpath('//div[@class="ny-down ny-var"]/a[@class=" da"]/@href')
     
     if debug:
         #print(downloadpage)
         #print(version)
         pass
     
-    app['downloadpage'] = host + downloadpage
-    app['version'] = version.replace(' ','')
-    app['package'] = app['link'].split('/')[4]
+    app['downloadpage'] = host + downloadpage[0]
+    app['version'] = version[0].replace(' ','')
 
 
 def download(app):
+    if app['downloadpage'] == None:
+        print('404 status  -', app['package'])
+        return '404 status'
+    
     download_path = download_dir + app['package']
     
     if not os.path.exists(download_path):
@@ -72,7 +82,7 @@ def download(app):
     
     if debug:
         #print(download_path)
-        print(app['downloadpage'])
+        #print(app['downloadpage'])
         pass
         
     response = s.get(app['downloadpage'])
@@ -82,17 +92,18 @@ def download(app):
     downloadlink = tree.xpath('//div[@class="fast-download-box"]/p/a[@id="download_link"]/@href')
     
     if len(filename) == 0:
-        return 'no download link'
+        print('no download -', app['package'])
+        return 'no download'
     
     app['filename'] = filename[0].replace(' ','_').replace('–','-')[:-1]
     app['downloadlink'] = downloadlink[0]
     
     download_path += '/' + app['filename']
     if os.path.exists(download_path):
+        print('file exists -', app['package'])
         return 'file exists'
     
     response = s.get(app['downloadlink'])
-    #location = response.headers['location'] # no redirect
     code = response.status_code
     
     if debug:
@@ -100,13 +111,18 @@ def download(app):
         #print(response.headers)
         pass
     
-    #response = s.get(app['downloadlink'])
+    if code == 302:
+        location = response.headers['location']
+        app['downloadlink'] = location
+        response = s.get(app['downloadlink'])
+        
     with open(download_path, 'wb') as f:  
         f.write(response.content)
         f.close()
+        print('download ok -', app['package'])
 
 def main():
-    search('assa abloy'.replace(' ','+'))
+    search('hospitality'.replace(' ','+'))
     for i in range(len(apps)):
         details(apps[i])
     
