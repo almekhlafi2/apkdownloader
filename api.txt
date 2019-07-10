@@ -1,0 +1,93 @@
+Suche
+1.
+https://apkpure.com/search?q=abc
+
+1,5.
+ <div class="search-tabs">
+                <ul>
+                    <li><a class=on href="/search?q=abc&t=app">Apps</a></li>
+                    <li><a  href="/search?q=abc&t=user">Users</a></li>
+                    <li><a  href="/search?q=abc&t=hashtag">Hashtags</a></li>
+                </ul>
+                
+                    <div class="search-text">
+                        <span>51</span> search results found.
+                    </div>
+                
+                <div class="clear"></div>
+            </div>
+            
+2.
+<div id="search-res" >
+                
+                    
+<dl class="search-dl">
+    <dt><a title="ABC – Live TV &amp; Full Episodes APK" target="_blank "href="/abc-%E2%80%93-live-tv-full-episodes/com.disney.datg.videoplatforms.android.abc"><img title="ABC – Live TV &amp; Full Episodes APK" src="https://image.winudf.com/v2/image1/Y29tLmRpc25leS5kYXRnLnZpZGVvcGxhdGZvcm1zLmFuZHJvaWQuYWJjX2ljb25fMTU1MzU2MjczN18wMDY/icon.png?w=130&amp;fakeurl=1"></a></dt>
+    <dd>
+        <p class="search-title"><a title="ABC – Live TV &amp; Full Episodes APK" target="_blank" href="/abc-%E2%80%93-live-tv-full-episodes/com.disney.datg.videoplatforms.android.abc">ABC – Live TV &amp; Full Episodes</a></p>
+        <div class="stars"><span class="score" title="ABC – Live TV &amp; Full Episodes average rating 10.0" style="width:100%"></span><span class="star">10.0</span></div>
+        <p>Developer: <a href="/developer/ABC%20Digital">ABC Digital</a></p>
+        <p><a target="_blank" class="more-down" href="/abc-%E2%80%93-live-tv-full-episodes/com.disney.datg.videoplatforms.android.abc">Read More</a></p>
+    </dd>
+</dl>
+
+<dl class="search-dl">
+    <dt><a title="ABC NEWS APK" target="_blank" href="/abc-news/android.AbcApplication"><img title="ABC NEWS APK" src="https://image.winudf.com/v2/image1/YW5kcm9pZC5BYmNBcHBsaWNhdGlvbl9pY29uXzE1NTQ1OTQ0NjBfMDM1/icon.png?w=130&amp;fakeurl=1"></a></dt>
+    <dd>
+        <p class="search-title"><a title="ABC NEWS APK" target="_blank" href="/abc-news/android.AbcApplication">ABC NEWS</a></p>
+        <div class="stars"><span class="score" title="ABC NEWS average rating 0.0" style="width:0%"></span></div>
+        <p>Developer: <a href="/developer/Australian%20Broadcasting%20Corporation">Australian Broadcasting Corporation</a></p>
+        <p><a target="_blank" class="more-down" href="/abc-news/android.AbcApplication">Read More</a></p>
+    </dd>
+</dl>
+
+<dl class="search-dl">
+    <dt><a title="ABC News - US &amp; World News APK" target="_blank" href="/abc-news-us-world-news/com.abc.abcnews"><img title="ABC News - US &amp; World News APK" src="https://image.winudf.com/v2/image1/Y29tLmFiYy5hYmNuZXdzX2ljb25fMTU1NTUxNTg3Nl8wMjU/icon.png?w=130&amp;fakeurl=1"></a></dt>
+    <dd>
+        <p class="search-title"><a title="ABC News - US &amp; World News APK" target="_blank" href="/abc-news-us-world-news/com.abc.abcnews">ABC News - US &amp; World News</a></p>
+        <div class="stars"><span class="score" title="ABC News - US &amp; World News average rating 10.0" style="width:100%"></span><span class="star">10.0</span></div>
+        <p>Developer: <a href="/developer/ABC%20News">ABC News</a></p>
+        <p><a target="_blank" class="more-down" href="/abc-news-us-world-news/com.abc.abcnews">Read More</a></p>
+    </dd>
+</dl>
+
+___________________________________________________
+Download
+3.
+ <div class="ny-down">
+                        
+                            
+                                
+                                    
+                                    
+                                        <a class=" da" title="Download ABC – Live TV &amp; Full Episodes latest version apk" href="/abc-%E2%80%93-live-tv-full-episodes/com.disney.datg.videoplatforms.android.abc/download?from=details">Download APK<span class="fsize">(<span>13.9 MB</span>)</span></a>
+                                    
+                                
+                            
+                        
+                        
+                        
+                            <a title="ABC Previous Versions" href="/abc-%E2%80%93-live-tv-full-episodes/com.disney.datg.videoplatforms.android.abc/versions" class="ny-versions">Versions</a>
+                            <a rel="nofollow" title="ABC safe verified" href="/faq-safe.html" class="safe popsafe-open"><img alt="ABC safe verified" src="https://static.apkpure.com/www/static/imgs/icon-verified_v2.png" width="16"></a>
+                        
+                        
+                    </div>
+
+
+4.
+https://apkpure.com/abc-%E2%80%93-live-tv-full-episodes/com.disney.datg.videoplatforms.android.abc/download?from=details
+5.
+<div class="fast-download-box">
+                <h1>
+                    Downloading<span class="dotting"></span>
+                    <span class="file">ABC – Live TV Full Episodes_v5.7.0.22_apkpure.com.apk <span class="fsize">(13.9 MB)</span></span>
+                </h1>
+                <p><a target="_blank" rel="nofollow" href="/how-to-install-apk.html">How to install APK / XAPK file</a></p>
+                <p>
+                    
+                    If the download doesn't start,
+                    
+                    <a id="download_link" rel="nofollow" class="ga" ga="download|com.disney.datg.videoplatforms.android.abc|details_APK_1_ENTERTAINMENT" title="Download ABC – Live TV &amp; Full Episodes latest version apk" href="https://download.apkpure.com/b/apk/Y29tLmRpc25leS5kYXRnLnZpZGVvcGxhdGZvcm1zLmFuZHJvaWQuYWJjXzUyN184Y2VlMjgxOQ?_fn=QUJDIOKAkyBMaXZlIFRWIEZ1bGwgRXBpc29kZXNfdjUuNy4wLjIyX2Fwa3B1cmUuY29tLmFwaw&k=f4eab04fb61de5345cb61b6fb44e4f3b5d281540&as=7c64e251e9769d657be72a1a27ef24cd5d2572b8&_p=Y29tLmRpc25leS5kYXRnLnZpZGVvcGxhdGZvcm1zLmFuZHJvaWQuYWJj&c=1%7CENTERTAINMENT%7CZGV2PUFCQyUyMERpZ2l0YWwmdD1hcGsmcz0xNDU4OTc2NSZ2bj01LjcuMC4yMiZ2Yz01Mjc">click here</a>
+                    
+                </p>
+            </div>
