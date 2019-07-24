@@ -31,6 +31,12 @@ s = req.Session()
 debug = 1
 
 
+def inList(pname):
+    for a in apps:
+        if a['package'] == pname:
+            return True
+    return False
+
 def search(searchstring):
     response = s.get('https://apkpure.com/search?q=' + searchstring)
     tree = html.fromstring(response.content)
@@ -51,7 +57,8 @@ def search(searchstring):
         pass
     
     for app in list(zip(titles, links, icons)):
-        apps.append({'title':app[0][:-4], 'link':host + app[1], 'desc':'', 'icon':app[2], 'downloadpage':'','latest_version':'', 'versions':[], 'filename':'', 'package':app[1].split('/')[2]})
+        if inList(app[1].split('/')[2]) == False:
+            apps.append({'title':app[0][:-4], 'link':host + app[1], 'desc':'', 'icon':app[2], 'downloadpage':'','latest_version':'', 'versions':[], 'filename':'', 'package':app[1].split('/')[2]})
 
 
 def details(app):
@@ -83,7 +90,7 @@ def versions(app):
     
     response = s.get(app['link'] + '/versions')
     if response.status_code == 404:
-        app['versions'] = []
+        app['versions'] = None
         return 0
     
     tree = html.fromstring(response.content)
@@ -93,8 +100,8 @@ def versions(app):
     #variants  = tree.xpath('//div[@class="ver"]/ul/li/a/div/div/span[@class="ver-item-t"]/text()')
     
     for v in zip(version, download):
-        app['versions'].append({'version':v[0],'download':host + v[1]})
-    
+        app['versions'].append({'version':v[0][1:],'download':host + v[1]})
+
 
 def download(app, all_versions=False):
     if app['downloadpage'] == None:
@@ -123,7 +130,7 @@ def download(app, all_versions=False):
     if not os.path.exists(download_path):
         os.makedirs(download_path)
     
-    download_path += '/' + app['version']
+    download_path += '/' + app['latest_version']
     if not os.path.exists(download_path):
         os.makedirs(download_path)
     
@@ -146,12 +153,62 @@ def download(app, all_versions=False):
         response = s.get(app['downloadlink'])
         
     with open(download_path, 'wb') as f:  
-        f.write(response.content)
+        #f.write(response.content)
         f.close()
-        print('download ok -', app['package'])
+        print('download ok -', app['package'], app['latest_version'])
+    
+    if all_versions and app['versions'] != None and len(app['versions']) > 0:
+        for v in app['versions']:
+            response = s.get(v['download'])
+            tree = html.fromstring(response.content)
+            
+            filename = tree.xpath('//div[@class="fast-download-box"]/h1/span[@class="file"]/text()')
+            downloadlink = tree.xpath('//div[@class="fast-download-box"]/p/a[@id="download_link"]/@href')
+            
+            if len(filename) == 0:
+                print('no download -', app['package'], v['version'])
+                continue
+            
+            v['filename'] = filename[0].replace(' ','_').replace('–','-')[:-1]
+            v['downloadlink'] = downloadlink[0]
+            
+            download_path = download_dir + '/' + app['package']
+            if not os.path.exists(download_path):
+                os.makedirs(download_path)
+            
+            download_path += '/' + v['version']
+            if not os.path.exists(download_path):
+                os.makedirs(download_path)
+            
+            download_path += '/' + v['filename']
+            if os.path.exists(download_path):
+                print('file exists -', v['filename'])
+                continue
+            
+            response = s.get(app['downloadlink'])
+            code = response.status_code
+            
+            if debug:
+                #print(code)
+                #print(response.headers)
+                pass
+            
+            if code == 302:
+                location = response.headers['location']
+                app['downloadlink'] = location
+                response = s.get(app['downloadlink'])
+                
+            with open(download_path, 'wb') as f:  
+                #f.write(response.content)
+                f.close()
+                print('download ok -', app['package'], v['version'])
+
 
 def main():
     search('hospitality'.replace(' ','+'))
+    search('assa abloy'.replace(' ','+'))
+    search('assaabloy'.replace(' ','+'))
+    search('hotel'.replace(' ','+'))
     
     for i in range(len(apps)):
         details(apps[i])
@@ -160,12 +217,13 @@ def main():
         versions(apps[i])
     
     for i in range(len(apps)):
+        download(apps[i], all_versions=True)
+    
+    for i in range(len(apps)):
         print(apps[i])
         print()
         #break
     
-    #for i in range(len(apps)):
-    #    download(apps[i], all_versions=True)
     
 if __name__== "__main__":
     main()
