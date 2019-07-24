@@ -6,7 +6,6 @@
 # Tobias Funke
 # 2019
 
-import sys
 import argparse
 import requests as req
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 from lxml import html
-import requests as req
 from multiprocessing.pool import ThreadPool
 
 from lib.utils import inList
@@ -46,7 +46,7 @@ def search(s, searchstring):
     
     #apps = details(s, apps)
     apps = versions(s, apps)
-
+    print(apps)
     return apps
 
 def details(s, apps):
@@ -127,19 +127,19 @@ def versions(s, apps):
                 tree = html.fromstring(response.content)
                 
                 filename = tree.xpath(xpaths['download-filename'])
-                download = tree.xpath(xpaths['download-link'])
+                downloadlink = tree.xpath(xpaths['download-link'])
                 
                 if len(filename) == 0:
                     apps[i]['versions'].append({'version' :v[0][1:],
                                                 'download':urls['host'] + v[1],
                                                 'filename':None,
-                                                'download':None
+                                                'downloadlink':None
                                                 })
                 else:
                     apps[i]['versions'].append({'version' :v[0][1:],
                                                 'download':urls['host'] + v[1],
                                                 'filename':filename[0].replace(' ','_').replace('–','-')[:-1],
-                                                'download':download[0]
+                                                'downloadlink':urls['host'] + download[0]
                                                 })
                     
 
@@ -167,28 +167,45 @@ def download(s, apps):
         try:
             #downloadIcon(s, apps[i])
             
-            if app['versions'] == None:
+            if apps[i]['versions'] == None:
                 raise ValueError('no version exists - None')
             
-            if len(app['versions']) == 0:
+            if len(apps[i]['versions']) == 0:
                 raise ValueError('no version exists - empty')
                 
-            for ver in app['versions']:
-                if ver['download'] == None:
-                    raise ValueError('no download exists for this version - None')
+            for version in apps[i]['versions']:
+                if version['downloadlink'] == None:
+                    raise ValueError('no download exists for this version - download None')
                 
-                response = s.get(ver['downloadlink'])
+                if version['filename'] == None:
+                    raise ValueError('no download exists for this version - filename None')
+            
+                download_path = download_dir + '/' + apps[i]['package']
+                if not os.path.exists(download_path):
+                    os.makedirs(download_path)
+                
+                download_path += '/' + version['version']
+                if not os.path.exists(download_path):
+                    os.makedirs(download_path)
+                    
+                download_path += '/' + version['filename']
+                if os.path.exists(download_path):
+                    raise ValueError('file exists - no download necessary')
+                
+                response = s.get(version['downloadlink'], stream=True)
                 code = response.status_code
                         
                 if code == 302:
                     location = response.headers['location']
-                    ver['downloadlink'] = location
-                    response = s.get(ver['downloadlink'])
+                    version['downloadlink'] = location
+                    response = s.get(version['downloadlink'], stream=True)
                             
-                with open(download_path, 'wb') as f:  
+                with open(download_path, 'wb') as f:
+                    #for chunk in response:
+                    #    f.write(chunk)
                     #f.write(response.content)
                     f.close()
-                    print('download ok -', app['package'], ver['version'])
+                    print('download ok -', apps[i]['package'], version['version'])
                     
         except ValueError as e:
             print(e)
